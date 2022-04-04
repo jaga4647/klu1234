@@ -1,0 +1,31 @@
+{% extends './templateManufacturer.html' %}
+
+{% block body %}
+<div class="panel panel-default">
+    <div class="panel-heading">
+        <h4>Deposit money</h4>
+    </div>
+    <div class="panel-body" style="width:400px;">
+        <form action="/manufacturer/add_balance/" method="POST">
+            {% csrf_token %}
+            <div class="form-group">
+                <label for="balance">Available Balance: {{user.balance}}</label>
+            </div>
+
+            <div class="form-group">
+                <label for="deposit">Deposit amount: </label>
+                <input class="form-control" min="0" type="number" name="deposit" id="deposit" required>
+            </div>
+
+            <input type="submit" value="Deposit">
+        </form>
+
+        <button type="button" onclick="location.href='/manufacturer/';">Back</button>
+    </div>
+</div>
+
+
+
+
+
+{% endblock %}

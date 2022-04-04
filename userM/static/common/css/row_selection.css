@@ -1,0 +1,6 @@
+.custom_row{
+    transition: background-color 0.5s ease;
+}
+.custom_row:hover{
+    background-color: rgb(215, 215, 215);
+}

@@ -1,0 +1,33 @@
+{% extends './templateManufacturer.html' %}
+
+{% block body %}
+<div class="panel panel-default">
+    <div class="panel-heading">
+        <h4>Initiate Manufacturing Order</h4>
+    </div>
+    <div class="panel-body" style="width: 400px;">
+        <form action="/manufacturer/order_created/" method="POST">
+            {% csrf_token %}
+
+            <div class="form-group">
+                <label for="blueprint">Car Model: </label>
+                <select class="form-control" name="blueprint" id="blueprint" required>
+                    {% for b in blueprints %}
+                    <option value="{{b.name}}">{{b.name}} | {{b.cost}}</option>
+                    {% endfor %}
+                </select>
+            </div>
+
+            <div class="form-group">
+                <label for="count">Number of items: </label>
+                <input class="form-control" type="number" min="0" name="count" id="count" required>
+            </div>
+
+            <input type="submit" value="Order now">
+        </form>
+        <button type="button" onclick="location.href='/manufacturer/';">Back</button>
+    </div>
+
+</div>
+
+{% endblock %}

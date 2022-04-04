@@ -1,0 +1,102 @@
+<html>
+<head>
+    <title>AMS: User Registration</title>
+    {% load staticfiles %}
+    <link rel="stylesheet" href="{% static 'common/css/bootstrap.min.css' %}">
+    <script src="{% static 'common/js/jquery.min.js' %}"></script>
+
+</head>
+<body>
+    {% if error %}
+    <div class="alert alert-danger">
+        {{ error }}
+    </div>
+    {% endif %}
+
+    {% if success %}
+    <div class="alert alert-success">
+        {{ success }}
+    </div>
+    {% endif %}
+
+     
+
+    <div class="panel panel-default">
+        <div class="panel-heading">
+            <h3>Sign in to the application</h3>
+        </div>
+
+        <div class="panel-body" style="width: 300px;">
+            <form action="/signin/" method="POST">
+                {% csrf_token %}
+                <div class="form-group">
+                    <label for="username">Username: </label>
+                    <input class="form-control" type="text" name="username" required>
+                </div>
+    
+                <div class="form-group">
+                    <label for="password">Password: </label>
+                    <input class="form-control" type="password" name="password" required>
+                </div>
+                    
+                <input type="submit" value="Sign in">
+            </form>
+        </div>
+    </div>
+
+    <div class="panel panel-default">
+        <div class="panel-heading">
+            <h3>Sign up to Automobile Management Service</h3>
+        </div>
+        <div class="panel-body" style="width: 300px;">
+            <form action="/signup/" method="POST">
+            {% csrf_token %}
+            <div class="form-group">
+                <label for="username">Username: </label>
+                <input class="form-control" type="text" name="username" id="username" required>
+            </div>
+        
+            <div class="form-group">
+                <label for="role">Role: </label>
+                <select class="form-control" name="role" id='role'>
+                    <option selected value="manufacturer">Manufacturer</option>
+                    <option value="dealer">Dealer</option>
+                    <option value="customer">Customer</option>
+                </select>
+            </div>
+        
+            <div class="form-group">
+                <label for="password">Password: </label>
+                <input class="form-control" type="password" name="password" id="password" required>
+            </div>
+            <div class="form-group">
+                <label for="re-password">Re-enter Password: </label>
+                <input class="form-control" type="password" name="re-password" id="re-password" required>
+            </div>
+        
+            <div class="form-group">
+                <label for="name">Name: </label>
+                <input class="form-control" type="text" name="name" id="name" required>
+            </div>
+
+            <div class="form-group">
+                <label for="country">Country: </label>
+                <input class="form-control" type="text" name="country" id="country" required>
+            </div>
+        
+            <div class="form-group">
+                <label for="balance">Balance: </label>
+                <input class="form-control" type="number" name="balance" id="balance" required pattern="[0-9]+">
+            </div>
+        
+            <input type="submit" value="Sign up">
+            </form>
+        </div>
+    </div>
+
+    <footer class="well well-sm">
+        Copyrights (c) 2018 by Ayulla Software Engineering. All Rights Reserved.
+    </footer>
+
+</body>
+</html>

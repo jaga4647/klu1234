@@ -1,0 +1,134 @@
+{% extends './templateDealer.html' %}
+
+{% block body %}
+<nav class="navbar navbar-default">
+    <ul class="nav navbar-nav">
+        <li><a href="wholesaleDeal/">Initiate wholesale deal</a></li>
+        <li><a href="balance/">Add balance</a></li>
+    </ul>
+</nav>
+
+
+{% if error %}
+<div class="alert alert-danger">
+    {{ error }}
+</div>
+{% endif %}
+
+{% if success %}
+<div class="alert alert-success">
+    {{ success }}
+</div>
+{% endif %}
+
+<div style="text-align: center;">
+    <div style="width: 80%; display: inline-block; text-align: left;">
+        {% if wholesaleNotRejections or wholesalesRejections %}
+        <div class="panel panel-default">
+            <div class="panel-heading">
+                <h4>Wholesale deals</h4>
+            </div>
+
+            <div class="panel-body">
+                <table class='table table-bordered'>
+                    <thead>
+                        <tr>
+                            <th>Id</th>
+                            <th>Manufacturer</th>
+                            <th>Car type</th>
+                            <th>Cost per car</th>
+                            <th>Count</th>
+                            <th>Order Status</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        {% for w in wholesaleNotRejections %}
+                        <tr>
+                            <td>{{w.pk}}</td>
+                            <td>{{w.manufacturer.name}}</td>
+                            <td>{{w.carBlueprint.name}}</td>
+                            <td>{{w.carBlueprint.cost}}</td>
+                            <td>{{w.amount}}</td>
+                            <td>Pending</td>
+                        </tr>
+                        {% endfor %}
+                        {% for w in wholesalesRejections %}
+                        <tr>
+                            <td>{{w.pk}}</td>
+                            <td>{{w.manufacturer.name}}</td>
+                            <td>{{w.carBlueprint.name}}</td>
+                            <td>{{w.carBlueprint.cost}}</td>
+                            <td>{{w.amount}}</td>
+                            <td>Declined</td>
+                        </tr>
+                        {% endfor %}
+                    </tbody>
+                </table>
+            </div>
+        </div>
+        {% endif %}
+
+        {% if retails %}
+        <div class="panel panel-default">
+            <div class="panel-heading">
+                <h4>Retail cars</h4>
+            </div>
+
+            <div class="panel-body">
+                <table class='table table-bordered'>
+                    <thead>
+                        <tr>
+                            <th>Car model</th>
+                            <th>Cost</th>
+                            <th>Count</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        {% for r in retails %}
+                        <tr>
+                            <td>{{r.carBlueprint.name}}</td>
+                            <td>{{r.carBlueprint.cost}}</td>
+                            <td>{{r.count}}</td>
+                        </tr>
+                        {% endfor %}
+                    </tbody>
+                </table>
+            </div>
+        </div>
+        {% endif %}
+
+
+
+        {% if retailDeals %}
+        <div class="panel panel-default">
+            <div class="panel-heading">
+                <h4>Retail Deals</h4>
+            </div>
+            <div class="panel-body">
+                <table class='table table-bordered'>
+                    <thead>
+                        <tr>
+                            <th>Id</th>
+                            <th>Customer</th>
+                            <th>Car type</th>
+                            <th>Cost</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        {% for r in retailDeals %}
+                        <tr id="retail_deal-{{r.pk}}" class="custom_row" onclick="gotoMore(this);">
+                            <td>{{r.pk}}</td>
+                            <td>{{r.customer.name}}</td>
+                            <td>{{r.carBlueprint.name}}</td>
+                            <td>{{r.carBlueprint.cost}}</td>
+                        </tr>
+                        {% endfor %}
+                    </tbody>
+                </table>
+            </div>
+        </div>
+        {% endif %}
+    </div>
+</div>
+
+{% endblock %}

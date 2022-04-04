@@ -1,0 +1,44 @@
+{% extends './templateManufacturer.html' %}
+
+{% block body %}
+<div class="panel panel-default">
+    <div class="panel-heading">
+        <h4>{{wholesale.carBlueprint.name}} - {{wholesale.amount}} Wholesale Deal</h4>
+    </div>
+    <div class="panel-body">
+        <div>Dealer: {{wholesale.dealer.name}}</div>
+        <div>Car model: {{wholesale.carBlueprint.name}}</div>
+        <div>Number of cars: {{wholesale.amount}}</div>
+        <div>Worth of the deal: {{wholesale.totalCost}}</div>
+    </div>
+</div>
+
+<div class="panel panel-default">
+    <div class="panel-heading">
+        <h4>Current stock</h4>
+    </div>
+    <div class="panel-body">
+        {% for i in inventory %}
+        <div>{{i.carBlueprint.name}} - {{i.count}}</div>
+        {% endfor %}
+    </div>
+</div>
+
+<div>
+    <form action="/manufacturer/wholesale_accept/" method="POST" style="display: inline-block;">
+        {% csrf_token %}
+        <input type="hidden" value="{{wholesale.pk}}" name="wholesaleId">
+        <input type="hidden" value="accept" name="status">
+        <input type="submit" value="Agree">
+    </form>
+    
+    <form action="/manufacturer/wholesale_accept/" method="POST" style="display: inline-block;">
+        {% csrf_token %}
+        <input type="hidden" value="{{wholesale.pk}}" name="wholesaleId">
+        <input type="hidden" value="decline" name="status">
+        <input type="submit" value="Decline">
+    </form>
+</div>
+
+<button type="button" onclick="location.href='/manufacturer/';">Back</button>
+{% endblock %}

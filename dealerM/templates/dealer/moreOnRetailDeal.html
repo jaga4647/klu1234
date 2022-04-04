@@ -1,0 +1,43 @@
+{% extends './templateDealer.html' %}
+
+{% block body %}
+<div class="panel panel-default">
+    <div class="panel-heading">
+        <h4>{{retail.customer.name}} - {{retail.carBlueprint.name}} Retail Deal</h4>
+    </div>
+    <div class="panel-body">
+        <div>Customer: {{retail.customer.name}}</div>
+        <div>Car model: {{retail.carBlueprint.name}}</div>
+        <div>Cost: {{retail.carBlueprint.cost}}</div>
+    </div>
+</div>
+
+<div class="panel panel-default">
+    <div class="panel-heading">
+        <h4>Current stock</h4>
+    </div>
+    <div class="panel-body">
+        {% for i in retailStock %}
+        <div>{{i.carBlueprint.name}} - {{i.count}}</div>
+        {% endfor %}
+    </div>
+</div>
+
+<div>
+    <form action="/dealer/retail_accept/" method="POST" style="display: inline-block;">
+        {% csrf_token %}
+        <input type="hidden" value="{{retail.pk}}" name="retailId">
+        <input type="hidden" value="accept" name="status">
+        <input type="submit" value="Agree">
+    </form>
+    
+    <form action="/dealer/retail_accept/" method="POST" style="display: inline-block;">
+        {% csrf_token %}
+        <input type="hidden" value="{{retail.pk}}" name="retailId">
+        <input type="hidden" value="decline" name="status">
+        <input type="submit" value="Decline">
+    </form>
+</div>
+
+<button type="button" onclick="location.href='/dealer/';">Back</button>
+{% endblock %}

@@ -1,0 +1,128 @@
+{% extends './templateManufacturer.html' %}
+
+{% block imports %}
+    {% load staticfiles %}
+    <link rel="stylesheet" href="{% static 'manufacturer/css/row_selection.css' %}">
+    <script src="{% static 'manufacturer/js/custom_routing.js' %}"></script>
+{% endblock %}
+
+{% block body %}
+<nav class="navbar navbar-default">
+    <ul class="nav navbar-nav">
+        <li><a href="initiate_order/">Initiate Manufacturing Order</a></li>
+        <li><a href="blueprint/">Create Blueprint</a></li>
+        <li><a href="balance/">Add balance</a></li>
+    </ul>
+</nav>
+
+{% if error %}
+<div class="alert alert-danger">
+    {{ error }}
+</div>
+{% endif %}
+
+{% if success %}
+<div class="alert alert-success">
+    {{ success }}
+</div>
+{% endif %}
+
+<div style="text-align: center;">
+    <div style="width: 80%; display: inline-block; text-align: left;">
+        {% if blueprints %}
+        <div class="panel panel-default">
+            <div class="panel-heading">
+                <h4>Blueprints that can be manufacturerd</h4>
+            </div>
+
+            <div class="panel-body">
+                <table class='table table-bordered'>
+                    <thead>
+                        <tr>
+                            <th>Id</th>
+                            <th>Automobile name</th>
+                            <th>Cost</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        {% for b in blueprints %}
+                        <tr id='blueprint-{{b.id}}' onclick='gotoMore(this);' class="custom_row">
+                            <td>
+                                {{ b.id }}
+                            </td>
+                            <td>
+                                {{ b.name }}
+                            </td>
+                            <td>
+                                {{ b.cost }}
+                            </td>
+                        </tr>
+                        {% endfor %}
+                    </tbody>
+                </table>
+            </div>
+        </div>
+        {% endif %}
+
+        {% if stock %}
+        <div class="panel panel-default">
+            <div class="panel-heading">
+                <h4>Automobiles in stock</h4>
+            </div>
+            
+            <div class="panel-body">
+                <table class='table table-bordered'>
+                    <thead>
+                        <tr>
+                            <th>Id</th>
+                            <th>Automobile Name</th>
+                            <th>Value of item</th>
+                            <th>Number of items</th>
+                        </tr>
+                    </thead>
+                    {% for i in stock %}
+                    <tr>
+                        <td>{{i.id}}</td>
+                        <td>{{i.carBlueprint.name}}</td>
+                        <td>{{i.carBlueprint.cost}}</td>
+                        <td>{{i.count}}</td>
+                    </tr>
+                    {% endfor%}
+                </table>
+            </div>
+        </div>
+        {% endif %}
+
+        {% if wholesaleRequests %}
+        <div class="panel panel-default">
+            <div class="panel-heading">
+                <h4>Wholesale Automobile Requests</h4>
+            </div>
+
+            <div class="panel-body">
+                <table class='table table-bordered'>
+                    <thead>
+                        <tr>
+                            <th>Id</th>
+                            <th>Dealer</th>
+                            <th>Automobile Name</th>
+                            <th>Number of items</th>
+                            <th>Value per item</th>
+                        </tr>
+                    </thead>
+                    {% for w in wholesaleRequests %}
+                    <tr id='wholesale_deal-{{w.pk}}' onclick='gotoMore(this);' class="custom_row">
+                        <td>{{w.pk}}</td>
+                        <td>{{w.dealer.name}}</td>
+                        <td>{{w.carBlueprint.name}}</td>
+                        <td>{{w.amount}}</td>
+                        <td>{{w.carBlueprint.cost}}</td>
+                    </tr>
+                    {% endfor %}
+                </table>
+            </div>
+        </div>
+        {% endif %}
+    </div>  
+</div>
+{% endblock %}

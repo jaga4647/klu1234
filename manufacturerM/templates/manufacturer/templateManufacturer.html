@@ -1,0 +1,44 @@
+<html>
+<head>
+    <title>AMS: Manufacturer</title>
+    
+    {% load staticfiles %}
+    <link rel="stylesheet" href="{% static 'common/css/bootstrap.min.css' %}">
+    <link rel="stylesheet" href="{% static 'common/css/row_selection.css' %}">
+    <script src="{% static 'common/js/jquery.min.js' %}"></script>
+
+    {% block imports %}
+    {% endblock %}
+</head>
+
+<body>
+    <header>
+        <nav class="navbar navbar-default">
+            <div class="navbar-header" style="display: inline-block;">
+                <h2 style="padding-right: 10px;">Automobile Management Service: Manufacturer</h2>
+            </div>
+            <div class="text-success">
+                <div>
+                    Username: {{ user.name }}
+                </div>
+                <div>
+                    Balance: {{ user.balance }}
+                </div>
+                <div class="text-primary">
+                    <a href="/signout/">sign out</a>
+                </div>
+            </div>
+        </nav>
+
+    </header>
+
+    <div style="min-height: 60%;">
+        {% block body %}
+        {% endblock %}
+    </div>
+
+    <footer class="well well-sm">
+        Copyrights (c) 2018 by Ayulla Software Engineering. All Rights Reserved.
+    </footer>
+</body>
+</html>

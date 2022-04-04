@@ -1,0 +1,33 @@
+{% extends './templateManufacturer.html' %}
+
+{% block body %}
+<div class="panel panel-default">
+    <div class="panel-heading">
+        <h4>Create Blueprint</h4>
+    </div>
+    <div class="panel-body" style="width: 400px;">
+        <form action="/manufacturer/blueprint_operation/" method="POST">
+            {% csrf_token %}
+            <input type="hidden" name="method" value="POST">
+
+            <div class="form-group">
+                <label for="name">Automobile name: </label>
+                <input class="form-control" type="text" name="name" id="name" required>
+            </div>
+
+            <div class="form-group">
+                <label for="cost">Cost: </label>
+                <input class="form-control" type="number" min="0" name="cost" id="cost" required>
+            </div>
+
+            <input type="submit" value="Create">
+        </form>
+        
+        <button type="button" onclick="location.href='/manufacturer/';">Back</button>
+    </div>
+</div>
+
+
+
+
+{% endblock %}

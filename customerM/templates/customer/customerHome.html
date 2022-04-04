@@ -1,0 +1,98 @@
+{% extends './templateCustomer.html' %}
+
+{% block body %}
+<nav class="navbar navbar-default">
+    <ul class="nav navbar-nav">
+        <li><a href="retail_deal/">Initiate retail deal</a></li>
+        <li><a href="balance/">Add balance</a></li>
+    </ul>
+</nav>
+
+
+{% if error %}
+<div class="alert alert-danger">
+    {{ error }}
+</div>
+{% endif %}
+
+{% if success %}
+<div class="alert alert-success">
+    {{ success }}
+</div>
+{% endif %}
+
+{% if carsowned %}
+<div style="text-align: center;">
+    <div style="width: 80%; display: inline-block; text-align: left;">
+        <div class="panel panel-default">
+            <div class="panel-heading">
+                <h4>Cars owned</h4>
+            </div>
+            <div class="panel-body">
+                <table class='table table-bordered'>
+                    <thead>
+                        <tr>
+                            <th>Car Type</th>
+                            <th>Count</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        {% for c in carsowned %}
+                        <tr>
+                            <td>{{c.carBlueprint.name}}</td>
+                            <td>{{c.count}}</td>
+                        </tr>
+                        {% endfor %}
+                    </tbody>
+                </table>    
+            </div>
+        </div>
+    </div>
+</div>
+{% endif %}
+
+<div style="text-align: center;">
+    <div style="width: 80%; display: inline-block; text-align: left;">
+        {% if retailDealsPending or retailDealsDeclined %}
+        <div class="panel panel-default">
+            <div class="panel-heading">
+                <h4>Retail Deals</h4>
+            </div>
+            <div class="panel-body">
+                <table class='table table-bordered'>
+                    <thead>
+                        <tr>
+                            <th>Id</th>
+                            <th>Dealer</th>
+                            <th>Car type</th>
+                            <th>Cost</th>
+                            <th>Deal Status</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        {% for r in retailDealsPending %}
+                        <tr>
+                            <td>{{r.pk}}</td>
+                            <td>{{r.dealer.name}}</td>
+                            <td>{{r.carBlueprint.name}}</td>
+                            <td>{{r.carBlueprint.cost}}</td>
+                            <td>Pending</td>
+                        </tr>
+                        {% endfor %}
+                        {% for r in retailDealsDeclined %}
+                        <tr>
+                            <td>{{r.pk}}</td>
+                            <td>{{r.dealer.name}}</td>
+                            <td>{{r.carBlueprint.name}}</td>
+                            <td>{{r.carBlueprint.cost}}</td>
+                            <td>Declined</td>
+                        </tr>
+                        {% endfor %}
+                    </tbody>
+                </table>
+            </div>
+        </div>
+    </div>
+</div>
+{% endif %}
+{% endblock %}

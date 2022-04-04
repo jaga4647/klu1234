@@ -1,0 +1,45 @@
+{% extends './templateManufacturer.html' %}
+
+{% block body %}
+<div class="panel panel-default">
+    <div class="panel-heading">
+        <h4>Edit Blueprint</h4>
+    </div>
+    <div class="panel-body">
+        <form id="blueprint_edit" action="/manufacturer/blueprint_operation/" method="POST">
+            {% csrf_token %}
+            <input type="hidden" name="method" value="PUT">
+            <input type="hidden" name="id" value="{{blueprint.pk}}">
+        
+            <div class="form-group">
+                <label for="name">Automobile name: {{blueprint.name}}</label>
+            </div>
+            
+            <div class="form-group">
+                <label for="cost">Cost: </label>
+                <input class="form-control" type="number" name="cost" id="cost" value="{{blueprint.cost}}" required>
+            </div>
+  
+            <input type="submit" value="Save" id="blueprint_edit_button">
+        </form>
+    </div>
+    <div class="panel-body">
+        <form id="blueprint_delete" action="/manufacturer/blueprint_operation/" method="POST">
+            {% csrf_token %}
+            <input type="hidden" name="method" value="DELETE">
+            <input type="hidden" name="id" value="{{blueprint.pk}}">
+            <input class="btn-danger" type="submit" value="Remove" id="blueprint_delete_button">
+        </form>
+        <button type="button" onclick="location.href='/manufacturer/';">Back</button>
+    </div>
+</div>
+
+
+
+
+
+
+
+
+
+{% endblock %}
